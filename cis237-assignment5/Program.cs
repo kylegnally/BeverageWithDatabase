@@ -28,7 +28,7 @@ namespace cis237_assignment5
             BeverageCollection beverageCollection = new BeverageCollection(beverageCollectionSize);
 
             // Create an instance of the CSVProcessor class
-            CSVProcessor csvProcessor = new CSVProcessor();
+            //CSVProcessor csvProcessor = new CSVProcessor();
 
             // Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -42,22 +42,22 @@ namespace cis237_assignment5
             {
                 switch (choice)
                 {
-                    case 1:
-                        // Load the CSV File
-                        bool success = csvProcessor.ImportCSV(beverageCollection, pathToCSVFile);
-                        if (success)
-                        {
-                            // Display Success Message
-                            userInterface.DisplayImportSuccess();
-                        }
-                        else
-                        {
-                            // Display Fail Message
-                            userInterface.DisplayImportError();
-                        }
-                        break;
+                    //case 1:
+                    //    // Load the CSV File
+                    //    bool success = csvProcessor.ImportCSV(beverageCollection, pathToCSVFile);
+                    //    if (success)
+                    //    {
+                    //        // Display Success Message
+                    //        userInterface.DisplayImportSuccess();
+                    //    }
+                    //    else
+                    //    {
+                    //        // Display Fail Message
+                    //        userInterface.DisplayImportError();
+                    //    }
+                    //    break;
 
-                    case 2:
+                    case 1:
                         // Print Entire List Of Items
                         string allItemsString = beverageCollection.ToString();
                         if (!String.IsNullOrWhiteSpace(allItemsString))
@@ -72,7 +72,7 @@ namespace cis237_assignment5
                         }
                         break;
 
-                    case 3:
+                    case 2:
                         // Search For An Item
                         string searchQuery = userInterface.GetSearchQuery();
                         string itemInformation = beverageCollection.FindById(searchQuery);
@@ -86,7 +86,7 @@ namespace cis237_assignment5
                         }
                         break;
 
-                    case 4:
+                    case 3:
                         // Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
                         if (beverageCollection.FindById(newItemInformation[0]) == null)

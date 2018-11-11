@@ -9,13 +9,14 @@ namespace cis237_assignment5
     class BeverageCollection
     {
         // Private Variables
-        private Beverage[] beverages;
+        //private Beverage[] beverages;
+        private BeverageKNallyEntities beverages;
         private int beverageLength;
 
         // Constructor. Must pass the size of the collection.
         public BeverageCollection(int size)
         {
-            this.beverages = new Beverage[size];
+            this.beverages = new BeverageKNallyEntities();
             this.beverageLength = 0;
         }
 
@@ -29,8 +30,23 @@ namespace cis237_assignment5
         )
         {
             // Add a new Beverage to the collection. Increase the Length variable.
-            beverages[beverageLength] = new Beverage(id, name, pack, price, active);
-            beverageLength++;
+            Beverage beverageToAdd = new Beverage();
+            beverageToAdd.id = id;
+            beverageToAdd.name = name;
+            beverageToAdd.pack = pack;
+            beverageToAdd.price = price;
+            beverageToAdd.active = active;
+
+            try
+            {
+                beverages.Beverages.Add(beverageToAdd);
+                beverages.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                beverages.Beverages.Remove(beverageToAdd);
+                Console.WriteLine("Cannot add a new item because an exception occurred.");
+            }
         }
 
         // ToString override method to convert the collection to a string
@@ -55,6 +71,8 @@ namespace cis237_assignment5
         // Find an item by it's Id
         public string FindById(string id)
         {
+            Beverage beverageToFind = beverages.Beverages.Where(beverages => beverages.id == id).First();
+            List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
             // Declare return string for the possible found item
             string returnString = null;
 
