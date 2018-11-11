@@ -92,7 +92,12 @@ namespace cis237_assignment5
                     {
                         // Set the return string to the result
                         // of the beverage's ToString method.
-                        returnString = beverage.ToString();
+                        returnString += beverage.id + " "
+                                        + beverage.name + " "
+                                        + beverage.pack + " "
+                                        + beverage.price + " "
+                                        + beverage.active
+                                        + Environment.NewLine;
                     }
                 }
             }
