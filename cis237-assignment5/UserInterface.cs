@@ -309,7 +309,7 @@ namespace cis237_assignment5
         private string GetItemHeader()
         {
             return String.Format(
-                "{0,-6} {1,-55} {2,-15} {3,6} {4,-6}",
+                "{0,-5} {1,-100} {2,-20} {3,-7} {4,-6}",
                 "Id",
                 "Name",
                 "Pack",
@@ -318,12 +318,12 @@ namespace cis237_assignment5
             ) +
             Environment.NewLine +
             String.Format(
-                "{0,-6} {1,-55} {2,-15} {3,6} {4,-6}",
-                new String('-', 6),
-                new String('-', 40),
-                new String('-', 15),
-                new String('-', 6),
-                new String('-', 5)
+                "{0,-5} {1,-100} {2,-20} {3,-7} {4,-6}",
+                new String('-', 5),
+                new String('-', 100),
+                new String('-', 20),
+                new String('-', 7),
+                new String('-', 6)
             );
         }
     }

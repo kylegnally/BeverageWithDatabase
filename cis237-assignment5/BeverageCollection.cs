@@ -56,12 +56,17 @@ namespace cis237_assignment5
             string returnString = "";
 
             // Loop through all of the beverages
-            foreach (Beverage beverage in beverages)
+            foreach (Beverage beverage in beverages.Beverages)
             {
                 // If the current beverage is not null, concat it to the return string
                 if (beverage != null)
                 {
-                    returnString += beverage.ToString() + Environment.NewLine;
+                    returnString += beverage.id + " " 
+                                    + beverage.name + " " 
+                                    + beverage.pack + " " 
+                                    + beverage.price + " " 
+                                    + beverage.active 
+                                    + Environment.NewLine;
                 }
             }
             // Return the return string
@@ -72,18 +77,18 @@ namespace cis237_assignment5
         public string FindById(string id)
         {
             Beverage beverageToFind = beverages.Beverages.Where(beverages => beverages.id == id).First();
-            List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
+            //List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
             // Declare return string for the possible found item
             string returnString = null;
 
             // For each Beverage in beverages
-            foreach (Beverage beverage in beverages)
+            foreach (Beverage beverage in beverages.Beverages)
             {
                 // If the beverage is not null
                 if (beverage != null)
                 {
                     // If the beverage Id is the same as the search Id
-                    if (beverage.Id == id)
+                    if (beverage.id == id)
                     {
                         // Set the return string to the result
                         // of the beverage's ToString method.
