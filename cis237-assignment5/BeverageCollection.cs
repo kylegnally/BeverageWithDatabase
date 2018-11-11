@@ -76,33 +76,42 @@ namespace cis237_assignment5
         // Find an item by it's Id
         public string FindById(string id)
         {
-            Beverage beverageToFind = beverages.Beverages.Where(beverages => beverages.id == id).First();
-            //List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
-            // Declare return string for the possible found item
-            string returnString = null;
-
-            // For each Beverage in beverages
-            foreach (Beverage beverage in beverages.Beverages)
+            try
             {
-                // If the beverage is not null
-                if (beverage != null)
+                Beverage beverageToFind = beverages.Beverages.Where(beverages => beverages.id == id).First();
+                string returnString = null;
+
+                // For each Beverage in beverages
+                foreach (Beverage beverage in beverages.Beverages)
                 {
-                    // If the beverage Id is the same as the search Id
-                    if (beverage.id == id)
+                    // If the beverage is not null
+                    if (beverage != null)
                     {
-                        // Set the return string to the result
-                        // of the beverage's ToString method.
-                        returnString += beverage.id + " "
-                                        + beverage.name + " "
-                                        + beverage.pack + " "
-                                        + beverage.price + " "
-                                        + beverage.active
-                                        + Environment.NewLine;
+                        // If the beverage Id is the same as the search Id
+                        if (beverage.id == id)
+                        {
+                            // Set the return string to the result
+                            // of the beverage's ToString method.
+                            returnString += beverage.id + " "
+                                                        + beverage.name + " "
+                                                        + beverage.pack + " "
+                                                        + beverage.price + " "
+                                                        + beverage.active
+                                                        + Environment.NewLine;
+                        }
                     }
                 }
+
+                // Return the returnString
+                return returnString;
             }
-            // Return the returnString
-            return returnString;
+            catch (Exception e)
+            {
+                return null;
+            }
+            //List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
+            // Declare return string for the possible found item
+            
         }
     }
 }
