@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cis237_assignment5
 {
-    class BeverageCollection
+    class BeverageCollection : IBeverageCollection
     {
         // Private Variables
         //private Beverage[] beverages;

@@ -73,6 +73,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbBeverage.edmx</DependentUpon>
     </Compile>
+    <Compile Include="IBeverageCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInterface.cs" />
