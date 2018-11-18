@@ -38,25 +38,10 @@ namespace cis237_assignment5
             int choice = userInterface.DisplayMenuAndGetResponse();
 
             // While the choice is not exit program
-            while (choice != 5)
+            while (choice != 6)
             {
                 switch (choice)
                 {
-                    //case 1:
-                    //    // Load the CSV File
-                    //    bool success = csvProcessor.ImportCSV(beverageCollection, pathToCSVFile);
-                    //    if (success)
-                    //    {
-                    //        // Display Success Message
-                    //        userInterface.DisplayImportSuccess();
-                    //    }
-                    //    else
-                    //    {
-                    //        // Display Fail Message
-                    //        userInterface.DisplayImportError();
-                    //    }
-                    //    break;
-
                     case 1:
                         // Print Entire List Of Items
                         string allItemsString = beverageCollection.ToString();
@@ -103,6 +88,39 @@ namespace cis237_assignment5
                         else
                         {
                             userInterface.DisplayItemAlreadyExistsError();
+                        }
+                        break;
+
+                    case 4:
+                        //// update an existing item
+
+                        string updateQuery = userInterface.GetUpdateQuery();
+                        string itemToUpdateInformation = beverageCollection.FindById(updateQuery);
+                        if (itemToUpdateInformation != null)
+                        {
+                            //userInterface.DisplayItemFound(itemToUpdateInformation);
+                            userInterface.ItemIsCorrectForUpdating(itemToUpdateInformation);
+                            bool updateChoice = userInterface.GetBoolOption(userInterface.GetSelection());
+                            if (updateChoice)
+                            {
+                                string[] updatedItemInformation = userInterface.GetUpdatedItemInformation();
+                                if (beverageCollection.UpdateById(updateQuery, updatedItemInformation))
+                                {
+                                    userInterface.DisplayUpdateSuccess();
+                                }
+                                else
+                                {
+                                    userInterface.DisplayUpdateError();
+                                }
+                            }
+                            else
+                            {
+                                userInterface.GetUpdateQuery();
+                            }
+                        }
+                        else
+                        {
+                            userInterface.DisplayItemFoundError();
                         }
                         break;
                 }

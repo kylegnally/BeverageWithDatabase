@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace cis237_assignment5
 {
-    class BeverageCollection : IBeverageCollection
+    class BeverageCollection
     {
         // Private Variables
         //private Beverage[] beverages;
@@ -112,6 +112,26 @@ namespace cis237_assignment5
             //List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
             // Declare return string for the possible found item
             
+        }
+
+        public bool UpdateById(string id, string[] updatedInformation)
+        {
+            try
+            {
+                Beverage beverageToUpdate = beverages.Beverages.Where(beverages => beverages.id == id).First();
+                beverageToUpdate.name = updatedInformation[0];
+                beverageToUpdate.pack = updatedInformation[1];
+                beverageToUpdate.price = decimal.Parse(updatedInformation[2]);
+                beverageToUpdate.active = bool.Parse(updatedInformation[3]);
+                beverages.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error has occurred.");
+                return false;
+            }
+
         }
     }
 }

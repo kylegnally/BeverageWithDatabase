@@ -8,7 +8,7 @@ namespace cis237_assignment5
 {
     class UserInterface
     {
-        const int MAX_MENU_CHOICES = 5;
+        const int MAX_MENU_CHOICES = 6;
 
         /*
         |----------------------------------------------------------------------
@@ -62,6 +62,14 @@ namespace cis237_assignment5
             return Console.ReadLine();
         }
 
+        public string GetUpdateQuery()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What is the Id of the item you wish to update?");
+            Console.Write("> ");
+            return Console.ReadLine();
+        }
+
         // Get New Item Information From The User.
         public string[] GetNewItemInformation()
         {
@@ -74,21 +82,31 @@ namespace cis237_assignment5
             return new string[] { id, name, pack, price, active };
         }
 
+        public string[] GetUpdatedItemInformation()
+        {
+            string name = this.GetStringField("Name");
+            string pack = this.GetStringField("Pack");
+            string price = this.GetDecimalField("Price");
+            string active = this.GetBoolField("Active");
+
+            return new string[] { name, pack, price, active };
+        }
+
         // Display Import Success
-        public void DisplayImportSuccess()
+        public void DisplayUpdateSuccess()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Wine List Has Been Imported Successfully");
+            Console.WriteLine("Database updated successfully.");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         // Display Import Error
-        public void DisplayImportError()
+        public void DisplayUpdateError()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("There was an error importing the CSV");
+            Console.WriteLine("There was an error updating the database.");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
@@ -125,6 +143,28 @@ namespace cis237_assignment5
             Console.WriteLine(this.GetItemHeader());
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(itemInformation);
+        }
+
+        public void ItemIsCorrectForUpdating(string itemInformation)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Is this the item you wish to update (Y/N)? ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(this.GetItemHeader());
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(itemInformation);
+        }
+
+        public bool GetBoolOption(string userChoiceBoolean)
+        {
+            bool choice;
+            if (userChoiceBoolean.ToUpper() == "Y") return choice = true;
+            else if (userChoiceBoolean.ToUpper() == "N") return choice = false;
+            else
+            {
+                DisplayErrorMessage();
+                return false;
+            }
         }
 
         // Display Item Found Error
@@ -166,11 +206,12 @@ namespace cis237_assignment5
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            //Console.WriteLine("1. Load Wine List From CSV");
             Console.WriteLine("1. Print The Entire Database Of Items");
             Console.WriteLine("2. Search For An Item");
             Console.WriteLine("3. Add New Item To The Database");
-            Console.WriteLine("4. Exit Program");
+            Console.WriteLine("4. Update an existing Item in the Database");
+            Console.WriteLine("5. Delete an Item from the Database");
+            Console.WriteLine("6. Exit Program");
         }
 
         // Display the Prompt
@@ -189,7 +230,7 @@ namespace cis237_assignment5
         }
 
         // Get the selection from the user
-        private string GetSelection()
+        public string GetSelection()
         {
             return Console.ReadLine();
         }
@@ -248,6 +289,11 @@ namespace cis237_assignment5
             }
             return value;
         }
+
+        //private string GetUpdateId()
+        //{
+           
+        //}
 
         // Get a valid decimal field from the console
         private string GetDecimalField(string fieldName)
