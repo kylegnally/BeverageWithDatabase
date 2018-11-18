@@ -9,9 +9,10 @@ namespace cis237_assignment5
     interface IBeverageCollection
     {
         /// getall
-        /// find
-        /// add
-        /// update
+        string FindById(string id);
+        void AddNewItem(string id, string name, string pack, decimal price, bool active);
+
+        bool update(string id);
         /// delete
     }
 }
