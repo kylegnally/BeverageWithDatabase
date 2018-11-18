@@ -138,7 +138,7 @@ namespace cis237_assignment5
                             }
                             else
                             {
-                                userInterface.GetDeletionQuery();
+                                break;
                             }
                         }
                         else
