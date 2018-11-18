@@ -351,6 +351,7 @@ namespace cis237_assignment5
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That is not a valid option. Please make a valid choice");
+            Console.ResetColor();
         }
 
         /// <summary>
