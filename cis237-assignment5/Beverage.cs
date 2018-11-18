@@ -9,8 +9,6 @@
 
 namespace cis237_assignment5
 {
-    using System;
-    using System.Collections.Generic;
     
     public partial class Beverage
     {

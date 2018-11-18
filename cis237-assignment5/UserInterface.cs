@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/****************************************************************************************
+*
+* Kyle Nally
+* CIS237 T/Th 3:30pm Assignment 5 - Databases and the Entity Framework: Beverages Redux
+* 11/18/2018
+*
+*****************************************************************************************/
+
+using System;
 
 namespace cis237_assignment5
 {
@@ -16,7 +20,9 @@ namespace cis237_assignment5
         |----------------------------------------------------------------------
         */
 
-        // Display Welcome Greeting
+        /// <summary>
+        /// Display Welcome Greeting to the user.
+        /// </summary>
         public void DisplayWelcomeGreeting()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -24,7 +30,10 @@ namespace cis237_assignment5
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        // Display Menu And Get Response
+        /// <summary>
+        /// Display Menu And Get Response
+        /// </summary>
+        /// <returns>int</returns>
         public int DisplayMenuAndGetResponse()
         {
             // Declare variable to hold the selection
@@ -53,7 +62,10 @@ namespace cis237_assignment5
             return Int32.Parse(selection);
         }
 
-        // Get the search query from the user
+        /// <summary>
+        /// Get the search query from the user
+        /// </summary>
+        /// <returns>string</returns>
         public string GetSearchQuery()
         {
             Console.WriteLine();
@@ -62,6 +74,10 @@ namespace cis237_assignment5
             return Console.ReadLine();
         }
 
+        /// <summary>
+        /// Get the id of the item to update from the user
+        /// </summary>
+        /// <returns>string</returns>
         public string GetUpdateQuery()
         {
             Console.WriteLine();
@@ -70,7 +86,22 @@ namespace cis237_assignment5
             return Console.ReadLine();
         }
 
-        // Get New Item Information From The User.
+        /// <summary>
+        /// Get the id of the item to delete from the user
+        /// </summary>
+        /// <returns></returns>
+        public string GetDeletionQuery()
+        {
+            Console.WriteLine();
+            Console.WriteLine("What is the Id of the item you wish to delete?");
+            Console.Write("> ");
+            return Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Get New Item Information From The User
+        /// </summary>
+        /// <returns>string[]</returns>
         public string[] GetNewItemInformation()
         {
             string id = this.GetStringField("Id");
@@ -82,6 +113,10 @@ namespace cis237_assignment5
             return new string[] { id, name, pack, price, active };
         }
 
+        /// <summary>
+        /// Get updated Item Information From The User
+        /// </summary>
+        /// <returns>string[]</returns>
         public string[] GetUpdatedItemInformation()
         {
             string name = this.GetStringField("Name");
@@ -92,7 +127,9 @@ namespace cis237_assignment5
             return new string[] { name, pack, price, active };
         }
 
-        // Display Import Success
+        /// <summary>
+        /// Display Import Success
+        /// </summary>
         public void DisplayUpdateSuccess()
         {
             Console.WriteLine();
@@ -101,7 +138,9 @@ namespace cis237_assignment5
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        // Display Import Error
+        /// <summary>
+        /// Display Import Error
+        /// </summary>
         public void DisplayUpdateError()
         {
             Console.WriteLine();
@@ -110,7 +149,32 @@ namespace cis237_assignment5
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        // Display All Items
+        /// <summary>
+        /// Display Deletion Success
+        /// </summary>
+        public void DisplayDeletionSuccess()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Database item deleted successfully.");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        /// <summary>
+        /// Display deletion error
+        /// </summary>
+        public void DisplayDeletionError()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("There was an error deleting the item from the database.");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        /// <summary>
+        /// Display All Items
+        /// </summary>
+        /// <param name="allItemsOutput"></param>
         public void DisplayAllItems(string allItemsOutput)
         {
             Console.WriteLine();
@@ -123,7 +187,9 @@ namespace cis237_assignment5
             Console.WriteLine(allItemsOutput);
         }
 
-        // Display All Items Error
+        /// <summary>
+        /// Display All Items Error
+        /// </summary>
         public void DisplayAllItemsError()
         {
             Console.WriteLine();
@@ -132,7 +198,10 @@ namespace cis237_assignment5
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        // Display Item Found Success
+        /// <summary>
+        /// Display Item Found Success
+        /// </summary>
+        /// <param name="itemInformation"></param>
         public void DisplayItemFound(string itemInformation)
         {
             Console.WriteLine();
@@ -145,6 +214,10 @@ namespace cis237_assignment5
             Console.WriteLine(itemInformation);
         }
 
+        /// <summary>
+        /// Verify the item displayed is the one the user wants to update
+        /// </summary>
+        /// <param name="itemInformation"></param>
         public void ItemIsCorrectForUpdating(string itemInformation)
         {
             Console.WriteLine();
@@ -155,6 +228,25 @@ namespace cis237_assignment5
             Console.WriteLine(itemInformation);
         }
 
+        /// <summary>
+        /// Verify the item displayed is the one the user wants to delete
+        /// </summary>
+        /// <param name="itemInformation"></param>
+        public void ItemIsCorrectForDeletion(string itemInformation)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Is this the item you wish to delete (Y/N)? ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(this.GetItemHeader());
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(itemInformation);
+        }
+
+        /// <summary>
+        /// Asks the user yes or no and returns their decision
+        /// </summary>
+        /// <param name="userChoiceBoolean"></param>
+        /// <returns>bool</returns>
         public bool GetBoolOption(string userChoiceBoolean)
         {
             bool choice;
@@ -167,7 +259,9 @@ namespace cis237_assignment5
             }
         }
 
-        // Display Item Found Error
+        /// <summary>
+        /// Display Item match not Found Error
+        /// </summary>
         public void DisplayItemFoundError()
         {
             Console.WriteLine();
@@ -176,22 +270,46 @@ namespace cis237_assignment5
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        // Display Add Wine Item Success
+        /// <summary>
+        /// Display Add Wine Item Success
+        /// </summary>
         public void DisplayAddWineItemSuccess()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("The Item was successfully added");
+            Console.WriteLine("The Item was successfully added.");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        // Display Item Already Exists Error
+        /// <summary>
+        /// Display Add Wine Item failure
+        /// </summary>
+        public void DisplayAddWineItemFailure()
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("The Item was not successfully added.");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        /// <summary>
+        /// Display Item Already Exists Error
+        /// </summary>
         public void DisplayItemAlreadyExistsError()
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("An Item With That Id Already Exists");
+            Console.WriteLine("An Item With That Id Already Exists.");
             Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        /// <summary>
+        /// Get the selection from the user
+        /// </summary>
+        /// <returns></returns>
+        public string GetSelection()
+        {
+            return Console.ReadLine();
         }
 
         /*
@@ -200,7 +318,9 @@ namespace cis237_assignment5
         |----------------------------------------------------------------------
         */
 
-        // Display the Menu
+        /// <summary>
+        /// Display the Menu
+        /// </summary>
         private void DisplayMenu()
         {
             Console.WriteLine();
@@ -214,14 +334,18 @@ namespace cis237_assignment5
             Console.WriteLine("6. Exit Program");
         }
 
-        // Display the Prompt
+        /// <summary>
+        /// Display the Prompt
+        /// </summary>
         private void DisplayPrompt()
         {
             Console.WriteLine();
             Console.Write("Enter Your Choice: ");
         }
 
-        // Display the Error Message
+        /// <summary>
+        /// Display the Error Message
+        /// </summary>
         private void DisplayErrorMessage()
         {
             Console.WriteLine();
@@ -229,13 +353,11 @@ namespace cis237_assignment5
             Console.WriteLine("That is not a valid option. Please make a valid choice");
         }
 
-        // Get the selection from the user
-        public string GetSelection()
-        {
-            return Console.ReadLine();
-        }
-
-        // Verify that a selection from the main menu is valid
+        /// <summary>
+        /// Verify that a selection from the main menu is valid
+        /// </summary>
+        /// <param name="selection"></param>
+        /// <returns>bool</returns>
         private bool VerifySelectionIsValid(string selection)
         {
             // Declare a returnValue and set it to false
@@ -264,7 +386,11 @@ namespace cis237_assignment5
             return returnValue;
         }
 
-        // Get a valid string field from the console
+        /// <summary>
+        /// Get a valid string field from the console
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns>string</returns>
         private string GetStringField(string fieldName)
         {
             Console.WriteLine("What is the new Item's {0}", fieldName);
@@ -290,12 +416,11 @@ namespace cis237_assignment5
             return value;
         }
 
-        //private string GetUpdateId()
-        //{
-           
-        //}
-
-        // Get a valid decimal field from the console
+        /// <summary>
+        /// Get a valid decimal field from the console
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns>string</returns>
         private string GetDecimalField(string fieldName)
         {
             Console.WriteLine("What is the new Item's {0}", fieldName);
@@ -322,7 +447,11 @@ namespace cis237_assignment5
             return value.ToString();
         }
 
-        // Get a valid bool field from the console
+        /// <summary>
+        /// Get a valid bool field from the console
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns>string</returns>
         private string GetBoolField(string fieldName)
         {
             Console.WriteLine("Should the Item be {0} (y/n)", fieldName);
@@ -351,7 +480,10 @@ namespace cis237_assignment5
             return value.ToString();
         }
 
-        // Get a string formatted as a header for items
+        /// <summary>
+        /// Get a string formatted as a header for items
+        /// </summary>
+        /// <returns>string</returns>
         private string GetItemHeader()
         {
             return String.Format(

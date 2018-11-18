@@ -57,7 +57,6 @@
       <DependentUpon>DbBeverage.tt</DependentUpon>
     </Compile>
     <Compile Include="BeverageCollection.cs" />
-    <Compile Include="CSVProcessor.cs" />
     <Compile Include="DbBeverage.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

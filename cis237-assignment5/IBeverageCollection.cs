@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/****************************************************************************************
+*
+* Kyle Nally
+* CIS237 T/Th 3:30pm Assignment 5 - Databases and the Entity Framework: Beverages Redux
+* 11/18/2018
+*
+*****************************************************************************************/
+
 
 namespace cis237_assignment5
 {
     interface IBeverageCollection
     {
-        /// getall
         string FindById(string id);
-        void AddNewItem(string id, string name, string pack, decimal price, bool active);
-
-        bool update(string id);
-        /// delete
+        bool AddNewItem(string id, string name, string pack, decimal price, bool active);
+        bool UpdateById(string id, string[] updatedInformation);
+        bool DeleteById(string id);
     }
 }

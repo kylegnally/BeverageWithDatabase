@@ -1,27 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/****************************************************************************************
+*
+* Kyle Nally
+* CIS237 T/Th 3:30pm Assignment 5 - Databases and the Entity Framework: Beverages Redux
+* 11/18/2018
+*
+*****************************************************************************************/
+
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace cis237_assignment5
 {
-    class BeverageCollection
+    class BeverageCollection : IBeverageCollection
     {
         // Private Variables
-        //private Beverage[] beverages;
         private BeverageKNallyEntities beverages;
         private int beverageLength;
 
-        // Constructor. Must pass the size of the collection.
+        /// <summary>
+        /// BeverageCollection constructor. 
+        /// </summary>
+        /// <param name="size"></param>
         public BeverageCollection(int size)
         {
             this.beverages = new BeverageKNallyEntities();
             this.beverageLength = 0;
         }
 
-        // Add a new item to the collection
-        public void AddNewItem(
+        /// <summary>
+        /// Method to add a new item to the collection.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="pack"></param>
+        /// <param name="price"></param>
+        /// <param name="active"></param>
+        /// <returns>bool</returns>
+        public bool AddNewItem(
             string id,
             string name,
             string pack,
@@ -29,27 +44,30 @@ namespace cis237_assignment5
             bool active
         )
         {
-            // Add a new Beverage to the collection. Increase the Length variable.
             Beverage beverageToAdd = new Beverage();
-            beverageToAdd.id = id;
-            beverageToAdd.name = name;
-            beverageToAdd.pack = pack;
-            beverageToAdd.price = price;
-            beverageToAdd.active = active;
-
             try
             {
+                beverageToAdd.id = id;
+                beverageToAdd.name = name;
+                beverageToAdd.pack = pack;
+                beverageToAdd.price = price;
+                beverageToAdd.active = active;
                 beverages.Beverages.Add(beverageToAdd);
                 beverages.SaveChanges();
+                return true;
             }
             catch (Exception e)
             {
                 beverages.Beverages.Remove(beverageToAdd);
                 Console.WriteLine("Cannot add a new item because an exception occurred.");
+                return false;
             }
         }
 
-        // ToString override method to convert the collection to a string
+        /// <summary>
+        /// ToString override method to convert the collection to a string.
+        /// </summary>
+        /// <returns>string</returns>
         public override string ToString()
         {
             // Declare a return string
@@ -64,7 +82,7 @@ namespace cis237_assignment5
                     returnString += beverage.id + " " 
                                     + beverage.name + " " 
                                     + beverage.pack + " " 
-                                    + beverage.price + " " 
+                                    + $"{beverage.price:0.00}" + " " 
                                     + beverage.active 
                                     + Environment.NewLine;
                 }
@@ -73,7 +91,11 @@ namespace cis237_assignment5
             return returnString;
         }
 
-        // Find an item by it's Id
+        /// <summary>
+        /// Performs a database lookup by id and returns a matching item if found.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>string</returns>
         public string FindById(string id)
         {
             try
@@ -95,7 +117,7 @@ namespace cis237_assignment5
                             returnString += beverage.id + " "
                                                         + beverage.name + " "
                                                         + beverage.pack + " "
-                                                        + beverage.price + " "
+                                                        + $"{beverage.price:0.00}" + " "
                                                         + beverage.active
                                                         + Environment.NewLine;
                         }
@@ -109,11 +131,14 @@ namespace cis237_assignment5
             {
                 return null;
             }
-            //List<Beverage> resultBeverage = beverages.Beverages.Where(beverages => beverages.id == id).ToList();
-            // Declare return string for the possible found item
-            
         }
 
+        /// <summary>
+        /// Performs a database lookup by id and attempts to update its other information.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updatedInformation"></param>
+        /// <returns>bool</returns>
         public bool UpdateById(string id, string[] updatedInformation)
         {
             try
@@ -131,7 +156,27 @@ namespace cis237_assignment5
                 Console.WriteLine("An error has occurred.");
                 return false;
             }
+        }
 
+        /// <summary>
+        /// Performs a database lookup of a beverage by its id and attempts to delete it.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>bool</returns>
+        public bool DeleteById(string id)
+        {
+            Beverage beverageToDelete = beverages.Beverages.Where(beverages => beverages.id == id).First();
+            try
+            {
+                beverages.Beverages.Remove(beverageToDelete);
+                beverages.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error has ocurred.");
+                return false;
+            }
         }
     }
 }

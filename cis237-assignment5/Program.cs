@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/****************************************************************************************
+*
+* Kyle Nally
+* CIS237 T/Th 3:30pm Assignment 5 - Databases and the Entity Framework: Beverages Redux
+* 11/18/2018
+*
+*****************************************************************************************/
+
+using System;
 
 namespace cis237_assignment5
 {
@@ -13,22 +17,16 @@ namespace cis237_assignment5
             // Set Console Window Size
             Console.BufferHeight = Int16.MaxValue - 1;
             Console.WindowHeight = 40;
-            Console.WindowWidth = 120;
+            Console.WindowWidth = 200;
 
             // Set a constant for the size of the collection
             const int beverageCollectionSize = 4000;
-
-            // Set a constant for the path to the CSV File
-            const string pathToCSVFile = "../../../datafiles/beverage_list.csv";
 
             // Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
 
             // Create an instance of the BeverageCollection class
             BeverageCollection beverageCollection = new BeverageCollection(beverageCollectionSize);
-
-            // Create an instance of the CSVProcessor class
-            //CSVProcessor csvProcessor = new CSVProcessor();
 
             // Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -43,22 +41,20 @@ namespace cis237_assignment5
                 switch (choice)
                 {
                     case 1:
-                        // Print Entire List Of Items
+                        // Print all items
                         string allItemsString = beverageCollection.ToString();
                         if (!String.IsNullOrWhiteSpace(allItemsString))
                         {
-                            // Display all of the items
                             userInterface.DisplayAllItems(allItemsString);
                         }
                         else
                         {
-                            // Display error message for all items
                             userInterface.DisplayAllItemsError();
                         }
                         break;
 
                     case 2:
-                        // Search For An Item
+                        // Search For An Item by its id (provided by the user)
                         string searchQuery = userInterface.GetSearchQuery();
                         string itemInformation = beverageCollection.FindById(searchQuery);
                         if (itemInformation != null)
@@ -76,14 +72,14 @@ namespace cis237_assignment5
                         string[] newItemInformation = userInterface.GetNewItemInformation();
                         if (beverageCollection.FindById(newItemInformation[0]) == null)
                         {
-                            beverageCollection.AddNewItem(
+                            if (beverageCollection.AddNewItem(
                                 newItemInformation[0],
                                 newItemInformation[1],
                                 newItemInformation[2],
                                 decimal.Parse(newItemInformation[3]),
                                 (newItemInformation[4] == "True")
-                            );
-                            userInterface.DisplayAddWineItemSuccess();
+                            )) userInterface.DisplayAddWineItemSuccess();
+                            else userInterface.DisplayAddWineItemFailure();
                         }
                         else
                         {
@@ -93,12 +89,10 @@ namespace cis237_assignment5
 
                     case 4:
                         //// update an existing item
-
                         string updateQuery = userInterface.GetUpdateQuery();
                         string itemToUpdateInformation = beverageCollection.FindById(updateQuery);
                         if (itemToUpdateInformation != null)
                         {
-                            //userInterface.DisplayItemFound(itemToUpdateInformation);
                             userInterface.ItemIsCorrectForUpdating(itemToUpdateInformation);
                             bool updateChoice = userInterface.GetBoolOption(userInterface.GetSelection());
                             if (updateChoice)
@@ -116,6 +110,35 @@ namespace cis237_assignment5
                             else
                             {
                                 userInterface.GetUpdateQuery();
+                            }
+                        }
+                        else
+                        {
+                            userInterface.DisplayItemFoundError();
+                        }
+                        break;
+                    case 5:
+                        // delete an existing item
+                        string deleteQuery = userInterface.GetDeletionQuery();
+                        string itemToDeleteInformation = beverageCollection.FindById(deleteQuery);
+                        if (itemToDeleteInformation != null)
+                        {
+                            userInterface.ItemIsCorrectForDeletion(itemToDeleteInformation);
+                            bool deleteChoice = userInterface.GetBoolOption(userInterface.GetSelection());
+                            if (deleteChoice)
+                            {
+                                if (beverageCollection.DeleteById(deleteQuery))
+                                {
+                                    userInterface.DisplayDeletionSuccess();
+                                }
+                                else
+                                {
+                                    userInterface.DisplayDeletionError();
+                                }
+                            }
+                            else
+                            {
+                                userInterface.GetDeletionQuery();
                             }
                         }
                         else
